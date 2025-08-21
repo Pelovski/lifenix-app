@@ -9,6 +9,7 @@
         "@schematics/angular:component": {
           "style": "scss",
           "standalone": false
+
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -32,14 +33,14 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+  "src/favicon.ico",
+  "src/assets"
+],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
@@ -91,12 +92,6 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
             "styles": [
               "src/styles.scss"
             ],
