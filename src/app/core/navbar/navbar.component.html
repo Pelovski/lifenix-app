@@ -1,15 +1,15 @@
-<nav class="fixed top-0 left-0 w-full bg-gray-900 shadow-md z-50">
-  <div class="flex items-center justify-between h-20 px-6">
-    <a href="/" class="flex items-center space-x-3 select-none focus:outline-none">
-      <img src="assets/LifeNixLogo.png" alt="LifeNix Logo" class="h-16 w-auto">
-      <span class="text-3xl font-extrabold text-white tracking-wide">LifeNix</span>
+<nav class="fixed top-0 left-0 w-full shadow-md z-50" style="background-color: #000d3d;">
+  <div class="flex items-center justify-between h-20 px-4 md:px-6">
+    <a routerLink="/" class="flex items-center space-x-3 select-none focus:outline-none cursor-pointer">
+      <img src="assets/LifeNixLogo.png" alt="LifeNix Logo" class="h-16 w-16 object-cover rounded-full clip-logo">
+      <span class="text-3xl font-extrabold text-white tracking-wide select-none">LifeNix</span>
     </a>
     <div class="flex space-x-10 text-lg font-medium">
-      <a href="/login" class="relative text-gray-300 hover:text-white transition-colors duration-300 group">
+      <a routerLink="/login" class="relative text-gray-300 hover:text-white transition-colors duration-300 group cursor-pointer">
         Login
         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
       </a>
-      <a href="/register" class="relative text-gray-300 hover:text-white transition-colors duration-300 group">
+      <a routerLink="/register" class="relative text-gray-300 hover:text-white transition-colors duration-300 group cursor-pointer">
         Register
         <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-white transition-all group-hover:w-full"></span>
       </a>
