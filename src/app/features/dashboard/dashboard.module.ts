@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
-import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 
 @NgModule({
   declarations: [
     DashboardLayoutComponent,
-    HomeComponent,
     SidebarComponent,
-    TopbarComponent
+    TopbarComponent,
+    DashboardHomeComponent
   ],
   imports: [
     CommonModule,
