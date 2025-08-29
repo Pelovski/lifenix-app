@@ -1,1 +1,42 @@
-<p>sidebar works!</p>
+<div class="flex flex-col h-screen w-20 lg:w-64 bg-gray-800 text-white transition-width duration-300 relative">
+
+  <div class="flex items-center justify-center lg:justify-start h-20 px-4 border-b border-gray-700">
+    <div class="relative">
+  
+      <span class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500 via-indigo-500 to-pink-500 blur-sm opacity-50"></span>
+
+      <span class="absolute inset-1 rounded-full bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-80 z-0"></span>
+      <img src="assets/LifeNixLogo.png" alt="LifeNix Logo" 
+           class="relative h-10 w-10 rounded-full clip-logo border-2 border-gray-800 shadow-lg z-10">
+    </div>
+    <span class="hidden lg:inline text-xl font-bold ml-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-500 drop-shadow-md">
+      LifeNix
+    </span>
+  </div>
+
+  <nav class="flex-1 flex flex-col mt-4">
+    <a routerLink="/dashboard/home" class="flex items-center px-4 py-3 hover:bg-gray-700 rounded transition-colors">
+      <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"/>
+      </svg>
+      <span class="hidden lg:inline">Dashboard</span>
+    </a>
+
+    <a routerLink="/dashboard/profile" class="flex items-center px-4 py-3 mt-2 hover:bg-gray-700 rounded transition-colors">
+      <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5.121 17.804A11.955 11.955 0 0112 15c2.485 0 4.77.748 6.879 2.028M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      <span class="hidden lg:inline">Profile</span>
+    </a>
+
+    <a href="#" class="flex items-center px-4 py-3 mt-2 hover:bg-gray-700 rounded transition-colors">
+      <svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <span class="hidden lg:inline">Settings</span>
+    </a>
+  </nav>
+</div>
