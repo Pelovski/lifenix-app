@@ -17,39 +17,39 @@
         <div class="w-full py-6">
             <h1 class="my-6 text-3xl font-bold">Create Your Account</h1>
 
-            <div class="py-6 flex justify-center space-x-4">
-                <!-- Facebook -->
-                <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background-color:#1877F2;">
-                    <i class="fab fa-facebook-f text-white"></i>
-                </a>
-                <!-- Instagram -->
-                <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" 
-                   style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
-                    <i class="fab fa-instagram text-white"></i>
-                </a>
-                <!-- Google -->
-                <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border" style="background-color:#ffffff;">
-                    <i class="fab fa-google text-[#DB4437]"></i>
-                </a>
-            </div>
+            <!-- Remove social media -->
+             <p class="mb-4 text-gray-300">
+                         Already have an account? 
+                <a routerLink="/login" class="text-indigo-500 hover:underline">Log in here</a>.
+            </p>
 
-            <p class="text-gray-100">or register with your email</p>
-
-            <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+            <form [formGroup]="registerForm" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                 <div class="pb-2 pt-4">
-                    <input type="text" name="name" placeholder="Username" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <input type="text"  formControlName="username" placeholder="Username" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <div class="text-red-500" *ngIf="username?.touched">
+                         {{ formErrorService.getErrorMessage(registerForm, 'username') }}
+                    </div>
                 </div>
                 <div class="pb-2 pt-4">
-                    <input type="email" name="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <input type="email" formControlName="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black">
+                     <div class="text-red-500" *ngIf="email?.touched">
+                         {{ formErrorService.getErrorMessage(registerForm, 'email') }}
+                    </div>
                 </div>
                 <div class="pb-2 pt-4">
-                    <input type="password" name="password" placeholder="Password" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <input type="password"formControlName="password" placeholder="Password" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <div class="text-red-500" *ngIf="password?.touched">
+                         {{ formErrorService.getErrorMessage(registerForm, 'password') }}
+                    </div>
                 </div>
                 <div class="pb-2 pt-4">
-                    <input type="password" name="confirm-password" placeholder="Confirm Password" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <input type="password" formControlName ="confirmPassword" placeholder="Confirm Password" class="block w-full p-4 text-lg rounded-sm bg-black">
+                    <div class="text-red-500" *ngIf="confirmPassword?.touched">
+                         {{ formErrorService.getErrorMessage(registerForm, 'confirmPassword') }}
+                    </div>
                 </div>
                 <div class="px-4 pb-2 pt-4">
-                    <button class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                    <button type="submit" [disabled]="registerForm.invalid" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer disabled:opacity-50">
                         Register
                     </button>
                 </div>
