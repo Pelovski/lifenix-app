@@ -26,27 +26,19 @@
             <form [formGroup]="registerForm" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                 <div class="pb-2 pt-4">
                     <input type="text"  formControlName="username" placeholder="Username" class="block w-full p-4 text-lg rounded-sm bg-black">
-                    <div class="text-red-500" *ngIf="username?.touched">
-                         {{ formErrorService.getErrorMessage(registerForm, 'username') }}
-                    </div>
+                    <app-form-error [control]="registerForm.get('username')" [form]="registerForm" controlName="username"></app-form-error>
                 </div>
                 <div class="pb-2 pt-4">
                     <input type="email" formControlName="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black">
-                     <div class="text-red-500" *ngIf="email?.touched">
-                         {{ formErrorService.getErrorMessage(registerForm, 'email') }}
-                    </div>
+                     <app-form-error [control]="registerForm.get('email')" [form]="registerForm" controlName="email"></app-form-error>
                 </div>
                 <div class="pb-2 pt-4">
                     <input type="password"formControlName="password" placeholder="Password" class="block w-full p-4 text-lg rounded-sm bg-black">
-                    <div class="text-red-500" *ngIf="password?.touched">
-                         {{ formErrorService.getErrorMessage(registerForm, 'password') }}
-                    </div>
+                    <app-form-error [control]="registerForm.get('password')" [form]="registerForm" controlName="password"></app-form-error>
                 </div>
                 <div class="pb-2 pt-4">
                     <input type="password" formControlName ="confirmPassword" placeholder="Confirm Password" class="block w-full p-4 text-lg rounded-sm bg-black">
-                    <div class="text-red-500" *ngIf="confirmPassword?.touched">
-                         {{ formErrorService.getErrorMessage(registerForm, 'confirmPassword') }}
-                    </div>
+                    <app-form-error [control]="registerForm.get('confirmPassword')" [form]="registerForm" controlName="confirmPassword"></app-form-error>
                 </div>
                 <div class="px-4 pb-2 pt-4">
                     <button type="submit" [disabled]="registerForm.invalid" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer disabled:opacity-50">
