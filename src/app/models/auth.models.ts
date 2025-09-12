@@ -17,7 +17,7 @@ export interface RegisterRequest{
     confirmPassword: string,
 };
 
-export interface RegisterResponce{
+export interface RegisterResponse{
     userId: string,
     username: string,
     roles: string[],

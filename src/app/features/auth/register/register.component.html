@@ -16,14 +16,12 @@
     <div class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-10">
         <div class="w-full py-6">
             <h1 class="my-6 text-3xl font-bold">Create Your Account</h1>
-
-            <!-- Remove social media -->
              <p class="mb-4 text-gray-300">
                          Already have an account? 
                 <a routerLink="/login" class="text-indigo-500 hover:underline">Log in here</a>.
             </p>
 
-            <form [formGroup]="registerForm" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+            <form (ngSubmit)="register()" [formGroup]="registerForm" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                 <div class="pb-2 pt-4">
                     <input type="text"  formControlName="username" placeholder="Username" class="block w-full p-4 text-lg rounded-sm bg-black">
                     <app-form-error [control]="registerForm.get('username')" [form]="registerForm" controlName="username"></app-form-error>

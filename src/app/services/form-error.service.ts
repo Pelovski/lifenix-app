@@ -11,7 +11,8 @@ export class FormErrorService {
   private errorMessages: any = {
     username: {
       required: 'Username is required.',
-      minlength: 'Username must be at least 4 characters.'
+      minlength: 'Username must be at least 4 characters.',
+      maxlength: 'Username cannot be longer than 15 characters.'
     },
     email: {
       required: 'Email is required.',
@@ -19,7 +20,7 @@ export class FormErrorService {
     },
     password: {
       required: 'Password is required.',
-      minlength: 'Password must be at least 12 characters.',
+      minlength: 'Password must be at least 8 characters.',
       passwordStrength: 'Password must contain uppercase, lowercase, number, and special character.'
     },
     confirmPassword: {
