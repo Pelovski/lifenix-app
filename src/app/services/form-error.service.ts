@@ -33,13 +33,21 @@ export class FormErrorService {
     const control = fb.get(contorlName);
 
     if(!control) return null;
-
+    
     if(control.errors){
       for(const errorName in control.errors){
         if(this.errorMessages[contorlName]?.[errorName]){
           return this.errorMessages[contorlName][errorName];
         }
       }
+    }
+
+    if(control.errors?.['backend']){
+      return control.errors['backend'];
+    }
+
+    if(contorlName === 'confirmPassword' && fb.hasError('mismatch')){
+      return this.errorMessages.confirmPassword.mismatch;
     }
 
     return null;

@@ -14,6 +14,7 @@ import { FormErrorService } from '../../../services/form-error.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  backendErrors : any = {};
 
   constructor(private fb: FormBuilder, public formErrorService: FormErrorService, public authService: AuthService) {}
 
@@ -38,9 +39,35 @@ export class RegisterComponent implements OnInit {
       this.authService.register(registerData).subscribe({
         next: (response: RegisterResponse) => {
           console.log('Registration successful', response)
+          this.backendErrors = {};
         },
         error: (err: HttpErrorResponse) => {
            console.error('Registration failed', err);
+
+           
+      Object.keys(this.registerForm.controls).forEach(key => {
+        const control = this.registerForm.get(key);
+        if(control?.hasError('backend')){
+          const errors = {...control.errors};
+          delete errors['backend'];
+
+          control.setErrors(Object.keys(errors).length ? errors : null);
+        }
+      });
+
+      const currentBackendErrors = err.error;
+      if(currentBackendErrors && Array.isArray(currentBackendErrors)){
+
+        currentBackendErrors.forEach((msg: string) => {
+          const lowerMsg = msg.toLocaleLowerCase();
+          console.log(lowerMsg);
+          if(lowerMsg.includes('email')){
+            this.registerForm.get('email')?.setErrors({backend: msg});
+          }else if(lowerMsg.includes('username')){
+            this.registerForm.get('username')?.setErrors({backend: msg});
+          }
+        })
+      }
         }
       });
     }else{
