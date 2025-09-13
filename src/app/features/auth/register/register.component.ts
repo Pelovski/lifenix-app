@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { passwordStrengthValidator, passwordMatchValidator } from '../validators/register-validators';
+import { passwordStrengthValidator, passwordMatchValidator, emailValidator } from '../validators/register-validators';
 import { RegisterRequest, RegisterResponse } from '../../../models/auth.models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
-      email: ['',[Validators.required, Validators.email]],
+      email: ['',[Validators.required, emailValidator]],
       password: ['', [Validators.required, Validators.minLength(8), passwordStrengthValidator]],
       confirmPassword: ['', [Validators.required]],
     }, { validators: passwordMatchValidator });
