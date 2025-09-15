@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginRequest } from '../../../models/auth.models';
+import { LoginRequest, LoginResponse } from '../../../models/auth.models';
 import { AuthService } from '../../../services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,14 @@ export class LoginComponent implements OnInit {
   login(): void{
     if(this.loginForm.valid){
       const loginData: LoginRequest = this.loginForm.value;
+      this.authService.login(loginData).subscribe({
+        next: (response: LoginResponse) => {
+          console.log('Login successful', response);
+        },
+        error: (err: HttpErrorResponse) =>{
+          console.error('Login failed', err);
+        }
+      });
     }
   }
 }

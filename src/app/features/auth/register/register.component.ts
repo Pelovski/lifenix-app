@@ -27,10 +27,6 @@ export class RegisterComponent implements OnInit {
     }, { validators: passwordMatchValidator });
   }
 
-  get username() { return this.registerForm.get('username'); }
-  get email() {return this.registerForm.get('email'); }
-  get password(){return this.registerForm.get('password'); }
-  get confirmPassword() {return this.registerForm.get('confirmPassword'); }
 
   register(): void{
     if(this.registerForm.valid){
@@ -45,7 +41,7 @@ export class RegisterComponent implements OnInit {
            console.error('Registration failed', err);
 
            
-      Object.keys(this.registerForm.controls).forEach(key => {
+      Object.keys(this.registerForm.controls).forEach(key => {``
         const control = this.registerForm.get(key);
         if(control?.hasError('backend')){
           const errors = {...control.errors};

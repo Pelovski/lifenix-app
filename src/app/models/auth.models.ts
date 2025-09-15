@@ -3,7 +3,7 @@ export interface LoginRequest{
     password: string,
 };
 
-export interface LoginResponce{
+export interface LoginResponse{
     userId: string,
     username: string,
     roles: string[],

@@ -29,7 +29,7 @@ export const passwordStrengthValidator: ValidatorFn = (control: AbstractControl)
     return passMach.test(control.value) ? null : {passwordStrength: true};
   }
 
-  export const emailValidator: ValidatorFn = (control: AbstractControl) : ValidationErrors | null => {
+export const emailValidator: ValidatorFn = (control: AbstractControl) : ValidationErrors | null => {
     const value = control.value;
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
     return regex.test(value) ? null : {email: true};
