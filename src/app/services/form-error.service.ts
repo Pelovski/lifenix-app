@@ -52,4 +52,28 @@ export class FormErrorService {
 
     return null;
   }
-}
+
+  applyBackendErrors(fb: FormGroup, backendErrors: string[]): void {
+    if (!backendErrors || !Array.isArray(backendErrors)) return;
+
+  Object.keys(fb.controls).forEach(key => {
+    const control = fb.get(key);
+    if (control?.hasError('backend')) {
+      const errors = { ...control.errors };
+      delete errors['backend'];
+      control.setErrors(Object.keys(errors).length ? errors : null);
+    }
+  });
+
+  backendErrors.forEach(msg => {
+    const lowerMsg = msg.toLowerCase();
+    if (lowerMsg.includes('email')) {
+      fb.get('email')?.setErrors({ backend: msg });
+    } else if (lowerMsg.includes('username')) {
+      fb.get('username')?.setErrors({ backend: msg });
+    } else if (lowerMsg.includes('password')) {
+      fb.get('password')?.setErrors({ backend: msg });
+    }
+  });
+  }
+} 

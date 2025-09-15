@@ -39,31 +39,7 @@ export class RegisterComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
            console.error('Registration failed', err);
-
-           
-      Object.keys(this.registerForm.controls).forEach(key => {``
-        const control = this.registerForm.get(key);
-        if(control?.hasError('backend')){
-          const errors = {...control.errors};
-          delete errors['backend'];
-
-          control.setErrors(Object.keys(errors).length ? errors : null);
-        }
-      });
-
-      const currentBackendErrors = err.error;
-      if(currentBackendErrors && Array.isArray(currentBackendErrors)){
-
-        currentBackendErrors.forEach((msg: string) => {
-          const lowerMsg = msg.toLocaleLowerCase();
-          console.log(lowerMsg);
-          if(lowerMsg.includes('email')){
-            this.registerForm.get('email')?.setErrors({backend: msg});
-          }else if(lowerMsg.includes('username')){
-            this.registerForm.get('username')?.setErrors({backend: msg});
-          }
-        })
-      }
+          this.formErrorService.applyBackendErrors(this.registerForm, err.error);
         }
       });
     }else{
