@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRequest, LoginResponse } from '../../../models/auth.models';
 import { AuthService } from '../../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormErrorService } from '../../../services/form-error.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService){}
+  constructor(private fb: FormBuilder, private authService: AuthService, public formErrorService: FormErrorService, private router: Router){}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -27,10 +29,13 @@ export class LoginComponent implements OnInit {
       const loginData: LoginRequest = this.loginForm.value;
       this.authService.login(loginData).subscribe({
         next: (response: LoginResponse) => {
+          this.router.navigate(['/dashboard']);
           console.log('Login successful', response);
         },
         error: (err: HttpErrorResponse) =>{
           console.error('Login failed', err);
+         this.formErrorService.applyBackendErrors(this.loginForm, err.error);
+         
         }
       });
     }

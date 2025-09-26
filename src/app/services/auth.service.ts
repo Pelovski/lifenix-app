@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../models/auth.models';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,13 @@ export class AuthService {
   }
 
   public login(loginData: LoginRequest): Observable<LoginResponse>{
-    return this.api.post<LoginResponse>('auth/login', loginData);
+    return this.api.post<LoginResponse>('auth/login', loginData, {withCredentials: true });
   }
-  
+
+  checkStatus(): Observable<boolean>{
+    return this.api.get('auth/status', {withCredentials: true}).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
+  }
 }

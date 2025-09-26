@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
            console.error('Registration failed', err);
-          this.formErrorService.applyBackendErrors(this.registerForm, err.error);
+           this.formErrorService.applyBackendErrors(this.registerForm, err.error);
         }
       });
     }else{
