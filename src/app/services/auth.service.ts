@@ -18,6 +18,10 @@ export class AuthService {
     return this.api.post<LoginResponse>('auth/login', loginData, {withCredentials: true });
   }
 
+  public logout(): Observable<any>{
+    return this.api.post<any>('auth/logout', {}, {withCredentials: true});
+  }
+
   checkStatus(): Observable<boolean>{
     return this.api.get('auth/status', {withCredentials: true}).pipe(
       map(() => true),

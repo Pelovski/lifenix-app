@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
         error: (err: HttpErrorResponse) =>{
           console.error('Login failed', err);
          this.formErrorService.applyBackendErrors(this.loginForm, err.error);
-         
         }
       });
     }
