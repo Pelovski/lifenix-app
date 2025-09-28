@@ -39,5 +39,9 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+  loginWithGoogle() {
+  window.location.href = 'https://localhost:7217/api/auth/google-login';
+}
   
 }
