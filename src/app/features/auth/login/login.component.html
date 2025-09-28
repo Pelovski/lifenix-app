@@ -19,13 +19,8 @@
 
                 <div class="py-6 flex justify-center space-x-4">
                     <!-- Facebook -->
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" style="background-color:#1877F2;">
+                    <a (click)="loginWithFacebook()" class="w-10 h-10 flex items-center justify-center rounded-full cursor-pointer" style="background-color:#1877F2;">
                         <i class="fab fa-facebook-f text-white"></i>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full" 
-                       style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);">
-                        <i class="fab fa-instagram text-white"></i>
                     </a>
                     <!-- Google -->
                     <a (click)="loginWithGoogle()" class="w-10 h-10 flex items-center justify-center rounded-full border cursor-pointer" style="background-color:#ffffff;">
@@ -48,7 +43,7 @@
                         <a href="#">Forgot your password?</a>
                     </div>
                     <div class="px-4 pb-2 pt-4">
-                        <button type="submit" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                        <button type="submit" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer">
                             Sign In
                         </button>
                     </div>
