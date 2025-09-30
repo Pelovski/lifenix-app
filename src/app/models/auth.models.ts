@@ -24,4 +24,8 @@ export interface RegisterResponse{
     errors?:string[] | null, 
 }
 
+export interface ForgotPasswordRequest{
+    email: string
+}
+
 

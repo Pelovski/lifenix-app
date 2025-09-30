@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../models/auth.models';
+import { ForgotPasswordRequest, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../models/auth.models';
 import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -27,5 +27,9 @@ export class AuthService {
       map(() => true),
       catchError(() => of(false))
     );
+  }
+
+  forgotPassword(forgotPasswordData: ForgotPasswordRequest): Observable<any>{
+    return this.api.post<any>('auth/forgot-password', forgotPasswordData);
   }
 }
