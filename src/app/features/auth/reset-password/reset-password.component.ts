@@ -8,6 +8,19 @@ import { passwordMatchValidator, passwordStrengthValidator } from '../validators
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent{
+export class ResetPasswordComponent implements OnInit{
+  resetPasswordForm!: FormGroup;
 
+  constructor(private fb: FormBuilder){}
+
+  ngOnInit(): void {
+     this.resetPasswordForm = this.fb.group({
+      password: ['', [Validators.required, passwordStrengthValidator]],
+      confirmPassword: ['',[Validators.required]]
+    }, {validators: passwordMatchValidator });
+  }
+
+  resetPassword(){
+    
+  }
 }
