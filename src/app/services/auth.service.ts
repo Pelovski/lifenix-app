@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { ForgotPasswordRequest, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../models/auth.models';
+import { ForgotPasswordRequest, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, ResetPasswordRequest, ValidateResetTokenRequest } from '../models/auth.models';
 import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -29,7 +29,15 @@ export class AuthService {
     );
   }
 
-  forgotPassword(forgotPasswordData: ForgotPasswordRequest): Observable<any>{
-    return this.api.post<any>('auth/forgot-password', forgotPasswordData);
+  forgotPassword(forgotPasswordData: ForgotPasswordRequest): Observable<void>{
+    return this.api.post<void>('auth/forgot-password', forgotPasswordData);
+  }
+
+  resetPassword(resetPasswordData: ResetPasswordRequest): Observable<void>{
+    return this.api.post<void>('auth/reset-password', resetPasswordData)
+  }
+
+  validateResetToken(validateResetTokenData: ValidateResetTokenRequest): Observable<void>{
+    return this.api.post<void>('auth/validate-reset-token', validateResetTokenData)
   }
 }

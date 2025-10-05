@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordMatchValidator, passwordStrengthValidator } from '../validators/register-validators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ResetPasswordRequest, ValidateResetTokenRequest } from '../../../models/auth.models';
+import { AuthService } from '../../../services/auth.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,17 +14,71 @@ import { passwordMatchValidator, passwordStrengthValidator } from '../validators
 })
 export class ResetPasswordComponent implements OnInit{
   resetPasswordForm!: FormGroup;
+  email!: string;
+  token!: string;
 
-  constructor(private fb: FormBuilder){}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService){}
 
   ngOnInit(): void {
-     this.resetPasswordForm = this.fb.group({
-      password: ['', [Validators.required, passwordStrengthValidator]],
-      confirmPassword: ['',[Validators.required]]
-    }, {validators: passwordMatchValidator });
-  }
+  this.resetPasswordForm = this.fb.group({
+    password: ['', [Validators.required, passwordStrengthValidator]],
+    confirmPassword: ['', [Validators.required]]
+  }, { validators: passwordMatchValidator });
+
+  this.route.queryParams
+    .pipe(take(1)) // 🔒 <-- взимаме параметрите само веднъж
+    .subscribe(params => {
+      this.email = params['email'];
+      this.token = params['token'];
+
+    console.log('Reset email:', this.email);
+    console.log('Reset token:', this.token);
+
+    if (this.email && this.token) {
+
+      const validateData: ValidateResetTokenRequest = {
+        email: this.email,
+        token: this.token
+      };
+
+      this.authService.validateResetToken(validateData).subscribe({
+        next: () => {
+          console.log('Token is valid');
+          // 🔒 Махаме параметрите след 1 тик, за да не нарушим реда на изпълнение
+          setTimeout(() => {
+            this.router.navigate([], { replaceUrl: true, queryParams: {} });
+          });
+        },
+        error: () => {
+          console.log('Invalid or expired token.');
+        }
+      });
+    } else {
+      console.error('Missing email or token in URL (check reset link)');
+    }
+  });
+}
 
   resetPassword(){
-    
+    if(this.resetPasswordForm.valid){
+      const resetData: ResetPasswordRequest = {
+        email: this.email,
+        token: this.token,
+        newPassword: this.resetPasswordForm.value.password
+      };
+
+       console.log('ValidateResetTokenData:', resetData);
+      
+    this.authService.resetPassword(resetData).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      },
+      error: () => {
+        console.log('Failed to reset password. Token may be invalid or expired.');
+      }
+    });
+    }
   }
 }

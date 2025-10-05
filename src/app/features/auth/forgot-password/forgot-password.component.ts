@@ -25,11 +25,14 @@ export class ForgotPasswordComponent implements OnInit{
 
   forgotPassword(){
     if(this.forgotPasswordForm.valid){
-      const forgotPasswordData: ForgotPasswordRequest = this.forgotPasswordForm.value.email;
+      const forgotPasswordData: ForgotPasswordRequest = {
+        email: this.forgotPasswordForm.value.email
+      };
 
-      this.authService.forgotPassword({email: this.forgotPasswordForm.value.email}).subscribe({
-        next: (response: any) => {
+      this.authService.forgotPassword(forgotPasswordData).subscribe({
+        next: (response: void) => {
           console.log("ForgotPassword successful", response);
+          this.forgotPasswordForm.reset();
         }
       });
     }
