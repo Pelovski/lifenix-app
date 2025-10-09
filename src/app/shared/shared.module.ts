@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormErrorComponent } from './form-error/form-error.component';
+import { SpinnerDirective } from './spinner.directive';
 
 
 
 @NgModule({
   declarations: [
-    FormErrorComponent
+    FormErrorComponent,
+    SpinnerDirective
   ],
   imports: [
     CommonModule

@@ -26,7 +26,7 @@ export class ResetPasswordComponent implements OnInit{
   }, { validators: passwordMatchValidator });
 
   this.route.queryParams
-    .pipe(take(1)) // 🔒 <-- взимаме параметрите само веднъж
+    .pipe(take(1))
     .subscribe(params => {
       this.email = params['email'];
       this.token = params['token'];
@@ -41,10 +41,9 @@ export class ResetPasswordComponent implements OnInit{
         token: this.token
       };
 
-      this.authService.validateResetToken(validateData).subscribe({
+      await this.authService.validateResetToken(validateData).subscribe({
         next: () => {
           console.log('Token is valid');
-          // 🔒 Махаме параметрите след 1 тик, за да не нарушим реда на изпълнение
           setTimeout(() => {
             this.router.navigate([], { replaceUrl: true, queryParams: {} });
           });
