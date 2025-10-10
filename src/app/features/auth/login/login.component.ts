@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormErrorService } from '../../../services/form-error.service';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../../services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, public formErrorService: FormErrorService, private router: Router){}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    public formErrorService: FormErrorService,
+    private router: Router,
+    private spinnerService: SpinnerService){}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -26,6 +32,10 @@ export class LoginComponent implements OnInit {
 
   login(): void{
     if(this.loginForm.valid){
+
+
+    this.spinnerService.show('login');
+
       const loginData: LoginRequest = this.loginForm.value;
       this.authService.login(loginData).subscribe({
         next: (response: LoginResponse) => {
@@ -33,6 +43,7 @@ export class LoginComponent implements OnInit {
           console.log('Login successful', response);
         },
         error: (err: HttpErrorResponse) =>{
+          this.spinnerService.hide('login');
           console.error('Login failed', err);
          this.formErrorService.applyBackendErrors(this.loginForm, err.error);
         }

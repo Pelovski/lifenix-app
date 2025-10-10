@@ -21,25 +21,21 @@ export class SpinnerService {
     return this.subjects.get(key)!.asObservable();
   }
 
-  setLoading(key: string, state: boolean){
-    const subject = this.ensure(key);
+  setLoading(key: string, state: boolean) {
+  const subject = this.ensure(key);
 
-    let count = this.counts.get(key) ?? 0;
+  let count = this.counts.get(key) ?? 0;
 
-    if(state){
-      count +=1;
-      this.counts.set(key, count);
-      if(count === 1){
-        subject.next(true);
-      }else{
-        count = Math.max(0, count -1);
-        this.counts.set(key, count);
-        if(count === 0){
-          subject.next(false);
-        }
-      }
-    }
+  if (state) {
+    count += 1;
+    this.counts.set(key, count);
+    if (count === 1) subject.next(true); // само при първо "показване"
+  } else {
+    count = Math.max(0, count - 1);
+    this.counts.set(key, count);
+    if (count === 0) subject.next(false); // само когато всички "показвания" са приключили
   }
+}
 
   show(key: string){
     this.setLoading(key, true);

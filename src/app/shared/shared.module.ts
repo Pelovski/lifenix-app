@@ -14,7 +14,8 @@ import { SpinnerDirective } from './spinner.directive';
     CommonModule
   ],
   exports:[
-    FormErrorComponent
+    FormErrorComponent,
+    SpinnerDirective
   ]
 })
 export class SharedModule { }

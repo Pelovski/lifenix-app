@@ -6,12 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './features/home/home.module';
 import { CoreModule } from './core/core.module';
-import { SpinnerDirective } from './services/spinner.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerDirective,
   ],
   imports: [
     BrowserModule,

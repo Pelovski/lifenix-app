@@ -41,7 +41,7 @@ export class ResetPasswordComponent implements OnInit{
         token: this.token
       };
 
-      await this.authService.validateResetToken(validateData).subscribe({
+       this.authService.validateResetToken(validateData).subscribe({
         next: () => {
           console.log('Token is valid');
           setTimeout(() => {
