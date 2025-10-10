@@ -18,11 +18,10 @@ export class SpinnerDirective implements OnDestroy {
 
  ngOnInit() {
     if (!this.key) {
-      console.warn('SpinnerDirective: липсва key (пример: [appSpinner]="\'login\'")');
+      console.warn('SpinnerDirective: missing key (example: [appSpinner]="\'login\'")');
       return;
     }
 
-    // Абонираме се за промяната на спинъра
     this.sub = this.spinnerService.isLoading$(this.key).subscribe(isLoading => {
       if (isLoading) {
         this.showSpinner();
@@ -33,10 +32,8 @@ export class SpinnerDirective implements OnDestroy {
   }
 
   private showSpinner() {
-    // Настройваме позицията на контейнера
     this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
 
-    // Създаваме контейнера на спинъра
     this.spinnerEl = this.renderer.createElement('div');
     this.renderer.addClass(this.spinnerEl, 'spinner-container');
     this.renderer.setStyle(this.spinnerEl, 'position', 'absolute');
@@ -47,7 +44,6 @@ export class SpinnerDirective implements OnDestroy {
     this.renderer.setStyle(this.spinnerEl, 'align-items', 'center');
     this.renderer.setStyle(this.spinnerEl, 'justify-content', 'center');
 
-    // Създаваме кръгчето за въртене
     const circle = this.renderer.createElement('div');
     this.renderer.addClass(circle, 'spinner-circle');
     this.renderer.setStyle(circle, 'width', '18px');
@@ -57,18 +53,15 @@ export class SpinnerDirective implements OnDestroy {
     this.renderer.setStyle(circle, 'border-radius', '50%');
     this.renderer.setStyle(circle, 'animation', 'spin 0.8s linear infinite');
 
-    // Добавяме кръгчето в контейнера
     this.renderer.appendChild(this.spinnerEl, circle);
 
-    // Добавяме спинъра към елемента
     this.renderer.appendChild(this.el.nativeElement, this.spinnerEl);
 
-    // Скриваме текста на контейнера (не го трием)
     this.renderer.setStyle(this.el.nativeElement, 'color', 'transparent');
   }
 
   private hideSpinner() {
-    // Връщаме текста обратно
+
     this.renderer.setStyle(this.el.nativeElement, 'color', '');
     if (this.spinnerEl) {
       this.renderer.removeChild(this.el.nativeElement, this.spinnerEl);

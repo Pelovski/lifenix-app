@@ -29,11 +29,11 @@ export class SpinnerService {
   if (state) {
     count += 1;
     this.counts.set(key, count);
-    if (count === 1) subject.next(true); // само при първо "показване"
+    if (count === 1) subject.next(true);
   } else {
     count = Math.max(0, count - 1);
     this.counts.set(key, count);
-    if (count === 0) subject.next(false); // само когато всички "показвания" са приключили
+    if (count === 0) subject.next(false);
   }
 }
 
