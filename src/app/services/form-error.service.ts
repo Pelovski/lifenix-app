@@ -76,4 +76,16 @@ export class FormErrorService {
     }
   });
   }
+
+  removeAllBackendRrrors(loginForm: FormGroup): void{
+
+    Object.keys(loginForm.controls).forEach(key => {
+    const control = loginForm.get(key);
+    if (control?.hasError('backend')) {
+      const errors = { ...control.errors };
+      delete errors['backend'];
+      control.setErrors(Object.keys(errors).length ? errors : null);
+    }
+  });
+  }
 } 

@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormErrorService } from '../../../services/form-error.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../../services/spinner.service';
+import { emailValidator, passwordStrengthValidator } from '../validators/register-validators';
 
 @Component({
   selector: 'app-login',
@@ -25,20 +26,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, emailValidator]],
+      password: ['', [Validators.required, Validators.minLength(8), passwordStrengthValidator]]
     });
   }
 
   login(): void{
+     this.formErrorService.removeAllBackendRrrors(this.loginForm);
+     
     if(this.loginForm.valid){
-
-
-    this.spinnerService.show('login');
-
+       this.spinnerService.show('login');
       const loginData: LoginRequest = this.loginForm.value;
       this.authService.login(loginData).subscribe({
         next: (response: LoginResponse) => {
+            this.spinnerService.hide('login');
           this.router.navigate(['/dashboard']);
           console.log('Login successful', response);
         },
@@ -48,6 +49,8 @@ export class LoginComponent implements OnInit {
          this.formErrorService.applyBackendErrors(this.loginForm, err.error);
         }
       });
+    }else{
+      this.spinnerService.hide('login');
     }
   }
 
