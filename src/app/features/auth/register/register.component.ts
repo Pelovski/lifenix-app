@@ -5,6 +5,7 @@ import { RegisterRequest, RegisterResponse } from '../../../models/auth.models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorService } from '../../../services/form-error.service';
+import { SpinnerService } from '../../../services/spinner.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,11 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   backendErrors : any = {};
 
-  constructor(private fb: FormBuilder, public formErrorService: FormErrorService, public authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    public formErrorService: FormErrorService,
+    public authService: AuthService,
+    public spinnerService: SpinnerService) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -29,7 +34,9 @@ export class RegisterComponent implements OnInit {
 
 
   register(): void{
+    this.formErrorService.removeAllBackendRrrors(this.registerForm);
     if(this.registerForm.valid){
+      this.spinnerService.show('register');
       const registerData : RegisterRequest = this.registerForm.value;
 
       this.authService.register(registerData).subscribe({
@@ -38,6 +45,7 @@ export class RegisterComponent implements OnInit {
           this.backendErrors = {};
         },
         error: (err: HttpErrorResponse) => {
+           this.spinnerService.hide('register');
            console.error('Registration failed', err);
            this.formErrorService.applyBackendErrors(this.registerForm, err.error);
         }

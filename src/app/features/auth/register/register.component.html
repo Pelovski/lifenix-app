@@ -39,7 +39,7 @@
                     <app-form-error [control]="registerForm.get('confirmPassword')" [form]="registerForm" controlName="confirmPassword"></app-form-error>
                 </div>
                 <div class="px-4 pb-2 pt-4">
-                    <button type="submit" [disabled]="registerForm.invalid" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer disabled:opacity-50">
+                    <button type="submit" [appSpinner]="'register'" [disabled]="registerForm.invalid" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer disabled:opacity-50">
                         Register
                     </button>
                 </div>
