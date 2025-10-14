@@ -4,6 +4,7 @@ import { emailValidator } from '../validators/register-validators';
 import { ForgotPasswordRequest } from '../../../models/auth.models';
 import { AuthService } from '../../../services/auth.service';
 import { FormErrorService } from '../../../services/form-error.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,7 +15,11 @@ import { FormErrorService } from '../../../services/form-error.service';
 export class ForgotPasswordComponent implements OnInit{
   forgotPasswordForm!: FormGroup
 
-  constructor(private fb: FormBuilder, public authService: AuthService, public formErrorService: FormErrorService){
+  constructor(
+    private fb: FormBuilder,
+    public authService: AuthService,
+    public formErrorService: FormErrorService,
+    public notificationService: NotificationService){
 
   }
   ngOnInit(): void {
@@ -32,6 +37,7 @@ export class ForgotPasswordComponent implements OnInit{
       this.authService.forgotPassword(forgotPasswordData).subscribe({
         next: (response: void) => {
           console.log("ForgotPassword successful", response);
+          this.notificationService.show('Almost done! If your email matches an existing account, you’ll get a reset link shortly.', 'success');
           this.forgotPasswordForm.reset();
         }
       });

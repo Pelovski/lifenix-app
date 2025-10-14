@@ -7,6 +7,7 @@ import { FormErrorService } from '../../../services/form-error.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../../services/spinner.service';
 import { emailValidator, passwordStrengthValidator } from '../validators/register-validators';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     public formErrorService: FormErrorService,
     private router: Router,
-    private spinnerService: SpinnerService){}
+    private spinnerService: SpinnerService,
+    private notificationService: NotificationService
+  ){}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
       const loginData: LoginRequest = this.loginForm.value;
       this.authService.login(loginData).subscribe({
         next: (response: LoginResponse) => {
-            this.spinnerService.hide('login');
+          this.spinnerService.hide('login');
           this.router.navigate(['/dashboard']);
           console.log('Login successful', response);
         },

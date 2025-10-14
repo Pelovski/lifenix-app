@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-topbar',
@@ -14,7 +15,7 @@ export class TopbarComponent {
 
   @ViewChild('profileMenu') profileMenu!: ElementRef;
 
-  constructor(public authService: AuthService, private router: Router){
+  constructor(public authService: AuthService, private router: Router, private notificationService: NotificationService){
 
   }
 
@@ -25,10 +26,10 @@ export class TopbarComponent {
   logout(){
     this.authService.logout().subscribe({
       next: () =>{
-        console.log('Logout was successful');
         this.router.navigate(['/login']);
       },
       error: (err) => {
+        this.notificationService.show('Something went wrong', 'error');
         console.error('Logout failed', err);
       }
     });

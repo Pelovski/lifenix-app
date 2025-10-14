@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ResetPasswordRequest, ValidateResetTokenRequest } from '../../../models/auth.models';
 import { AuthService } from '../../../services/auth.service';
 import { take } from 'rxjs';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,7 +18,12 @@ export class ResetPasswordComponent implements OnInit{
   email!: string;
   token!: string;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService){}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    public notificationService: NotificationService){}
 
   ngOnInit(): void {
   this.resetPasswordForm = this.fb.group({
@@ -70,12 +76,17 @@ export class ResetPasswordComponent implements OnInit{
       
     this.authService.resetPassword(resetData).subscribe({
       next: () => {
+        this.notificationService.show('Your password has been successfully changed!', 'success');
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 2000);
+        }, 3000);
       },
       error: () => {
         console.log('Failed to reset password. Token may be invalid or expired.');
+        this.notificationService.show('Your password reset link has expired. Please request a new one.', 'error');
+        setTimeout(() => {
+          this.router.navigate(['/forgot-password'])
+        }, 3000);
       }
     });
     }
