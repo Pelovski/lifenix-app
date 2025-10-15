@@ -64,8 +64,8 @@ export class LoginComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) =>{
           this.spinnerService.hide('login');
+          this.notificationService.show(err.error, 'error');
           console.error('Login failed', err);
-         this.formErrorService.applyBackendErrors(this.loginForm, err.error);
         }
       });
     }else{
