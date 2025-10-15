@@ -42,6 +42,8 @@
                     <div class="text-right text-gray-400 hover:underline hover:text-gray-100">
                         <a routerLink="/forgot-password">Forgot your password?</a>
                     </div>
+                    <ngx-turnstile siteKey="0x4AAAAAAB6l8p2ujPTyK9fG" (resolved)="onCaptchaResolved($event)" theme="dark" size="normal"></ngx-turnstile>
+
                     <div class="px-4 pb-2 pt-4">
                         <button [appSpinner]="'login'" type="submit" class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none cursor-pointer">
                             Sign In

@@ -6,6 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormErrorService } from '../../../services/form-error.service';
 import { SpinnerService } from '../../../services/spinner.service';
+import { NotificationService } from '../../../services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +23,9 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     public formErrorService: FormErrorService,
     public authService: AuthService,
-    public spinnerService: SpinnerService) {}
+    public spinnerService: SpinnerService,
+    public notificationService: NotificationService,
+    public router: Router ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -42,6 +46,11 @@ export class RegisterComponent implements OnInit {
       this.authService.register(registerData).subscribe({
         next: (response: RegisterResponse) => {
           console.log('Registration successful', response)
+          this.notificationService.show('Registration successful! You can now log in with your credentials.', 'success');
+          this.spinnerService.hide('register');
+          setTimeout(() => {
+            this.router.navigate(['login'])
+          }, 3000);
           this.backendErrors = {};
         },
         error: (err: HttpErrorResponse) => {
@@ -52,6 +61,7 @@ export class RegisterComponent implements OnInit {
       });
     }else{
       console.warn('Form is invalid');
+      this.spinnerService.hide('register');
     }
   }
 

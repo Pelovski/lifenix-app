@@ -17,6 +17,8 @@ import { NotificationService } from '../../../services/notification.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  captchaToken: string = '';
+  isCaptchaValid: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,9 +36,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  onCaptchaResolved(token: string | null){
+    if(token){
+    this.captchaToken = token;
+    this.isCaptchaValid = true;
+    }else{
+       this.isCaptchaValid = false;
+    }
+  }
+
   login(): void{
      this.formErrorService.removeAllBackendRrrors(this.loginForm);
      
+    if(!this.isCaptchaValid){
+       this.notificationService.show('Please confirm you are not a robot!', 'error');
+      return;
+    }
+
     if(this.loginForm.valid){
        this.spinnerService.show('login');
       const loginData: LoginRequest = this.loginForm.value;
